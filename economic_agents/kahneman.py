@@ -1,4 +1,4 @@
-from open_ai import OpenAI
+from .open_ai import OpenAI
 import matplotlib.pyplot as plt
 import numpy as np
 import logging 
@@ -7,10 +7,11 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 class Kahneman:
-    def __init__(self, api_key, model):
+    def __init__(self, api_key, model, image_path):
         openai_api_key: str = None
         self.openai_api_key = openai_api_key
         self.model = OpenAI(key=api_key, model=model)
+        self.image_path = image_path
         self.politics_view = [
             "socialist",
             "leftist",
@@ -73,17 +74,10 @@ class Kahneman:
                 ax.set_xticklabels(["Acceptable", "Unfair", "Very Unfair"])  # Set the x-axis labels to the moral judgments
                 ax.legend()
         fig.tight_layout()
-        plt.savefig('plot.png')  # Save the figure as an image
+        plt.savefig(self.image_path) 
         plt.show()
 
-    """def __call__(self):
+    def __call__(self):
         results = self.play()
         self.create_plot(results)
-        return results"""
-
-if __name__ == "__main__":
-    game = Kahneman("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", "gpt-3.5-turbo")
-    #results = game.play()
-    results = {('socialist', 'raises the price to', 16): '3', ('socialist', 'raises the price to', 20): '3', ('socialist', 'raises the price to', 40): '3', ('socialist', 'raises the price to', 100): '3', ('socialist', 'changes the price to', 16): '3', ('socialist', 'changes the price to', 20): '3', ('socialist', 'changes the price to', 40): '3', ('socialist', 'changes the price to', 100): '3', ('leftist', 'raises the price to', 16): '3', ('leftist', 'raises the price to', 20): '3', ('leftist', 'raises the price to', 40): '3', ('leftist', 'raises the price to', 100): '3', ('leftist', 'changes the price to', 16): '3', ('leftist', 'changes the price to', 20): '3', ('leftist', 'changes the price to', 40): '3', ('leftist', 'changes the price to', 100): '3', ('liberal', 'raises the price to', 16): '2', ('liberal', 'raises the price to', 20): '2', ('liberal', 'raises the price to', 40): '3', ('liberal', 'raises the price to', 100): '3', ('liberal', 'changes the price to', 16): '2', ('liberal', 'changes the price to', 20): '2', ('liberal', 'changes the price to', 40): '2', ('liberal', 'changes the price to', 100): '2', ('moderate', 'raises the price to', 16): '2', ('moderate', 'raises the price to', 20): '2', ('moderate', 'raises the price to', 40): '2', ('moderate', 'raises the price to', 100): '2', ('moderate', 'changes the price to', 16): '2', ('moderate', 'changes the price to', 20): '2', ('moderate', 'changes the price to', 40): '2', ('moderate', 'changes the price to', 100): '2', ('liberterian', 'raises the price to', 16): '2', ('liberterian', 'raises the price to', 20): '2', ('liberterian', 'raises the price to', 40): '2', ('liberterian', 'raises the price to', 100): '2', ('liberterian', 'changes the price to', 16): '2', ('liberterian', 'changes the price to', 20): '2', ('liberterian', 'changes the price to', 40): '2', ('liberterian', 'changes the price to', 100): '2', ('conservative', 'raises the price to', 16): '2', ('conservative', 'raises the price to', 20): '2', ('conservative', 'raises the price to', 40): '2', ('conservative', 'raises the price to', 100): '2', ('conservative', 'changes the price to', 16): '2', ('conservative', 'changes the price to', 20): '2', ('conservative', 'changes the price to', 40): '2', ('conservative', 'changes the price to', 100): '2'}
-    plot = game.create_plot(results)
-
+        return results

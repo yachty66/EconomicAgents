@@ -9,6 +9,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         'openai',
-        'matplotlib'
+        'matplotlib',
+        'numpy'
     ],
 )

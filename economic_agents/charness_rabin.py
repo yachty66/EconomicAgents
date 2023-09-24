@@ -6,10 +6,11 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 class CharnessRabin:
-    def __init__(self, api_key, model, personality):
+    def __init__(self, api_key, model, personality, image_page):
         openai_api_key: str = None
         self.openai_api_key = openai_api_key
         self.model = OpenAI(key=api_key, model=model)
+        self.image_path = image_page
         self.options = {
             "left": {"A": 300, "B": 600},
             "right": {"A": 700, "B": 500}
@@ -60,7 +61,7 @@ class CharnessRabin:
         plt.ylabel('Scenarios')
         plt.title('Choices for each scenario')
         plt.xticks([-1, 1], ['Left', 'Right'])
-        plt.savefig('charness_rabin_plot.png')
+        plt.savefig(self.image_path)
 
     def __call__(self):
         results = self.play()
