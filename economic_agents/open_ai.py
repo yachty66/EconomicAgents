@@ -17,6 +17,7 @@ class OpenAI:
             model=self.model,
             messages=messages,
             temperature=self.temperature,
+            max_tokens=1,
         )
         result = response.choices[0]['message']['content']
         return result

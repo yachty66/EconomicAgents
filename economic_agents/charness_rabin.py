@@ -1,5 +1,9 @@
 from .open_ai import OpenAI
 import matplotlib.pyplot as plt
+import logging 
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 class CharnessRabin:
     def __init__(self, api_key, model, personality):
@@ -14,7 +18,8 @@ class CharnessRabin:
             "",
             "You only care about fairness between players",
             "You only care about your own pay-off",
-            "You only care about the total pay-off of both players"
+            "You only care about the total pay-off of both players",
+            " "
         ] 
         self.personality_choice = personality
         self.scenarios = {
@@ -42,6 +47,8 @@ class CharnessRabin:
             What do you choose, with one word [Left, Right]?"""
             solution = self.model.generate(prompt)
             results[scenario] = solution
+            logger.info(f"Prompt: {prompt}")
+            logger.info(f"Model response: {solution}")
         return results
 
     def create_plot(self, results):
