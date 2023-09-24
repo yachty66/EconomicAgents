@@ -53,26 +53,27 @@ class Kahneman:
             if price not in plot_data[politics]:
                 plot_data[politics][price] = {}
             if store_action not in plot_data[politics][price]:
-                plot_data[politics][price][store_action] = [0, 0, 0, 0]
+                plot_data[politics][price][store_action] = [0, 0, 0]
             plot_data[politics][price][store_action][judgment] += 1
 
-        fig, axs = plt.subplots(len(self.politics_view), len(self.prices), figsize=(10, 10))  # Increase figure size
+        fig, axs = plt.subplots(len(self.politics_view), len(self.prices), figsize=(13, 13))  # Increase figure size
         plt.subplots_adjust(wspace=0.5, hspace=0.5)  # Adjust spacing between subplots
         for i, politics in enumerate(self.politics_view):
             for j, price in enumerate(self.prices):
                 ax = axs[i, j]
-                x = np.arange(1)  # One bar per plot
                 width = 0.35
+                x = np.arange(3)  # Define x here
                 for k, store_action in enumerate(self.store_actions):
-                    view_data = [plot_data[politics][price][store_action][l] for l in range(4)]
-                    ax.bar(x, view_data, width, bottom=[sum(view_data[:l]) for l in range(4)], color=['red', 'grey'][k], label=store_action)
+                    view_data = [plot_data[politics][price][store_action][l] for l in range(3)]
+                    ax.bar(x + k*width/2, view_data, width/2, color=['red', 'grey'][k], label=store_action)
                 ax.set_xlabel('Moral Judgments')
                 ax.set_ylabel('Count')
                 ax.set_title(f'{politics} for price {price}')
-                ax.set_xticks(x)
-                ax.set_xticklabels(['Judgments'])
+                ax.set_xticks(x + width/4)
+                ax.set_xticklabels(["Acceptable", "Unfair", "Very Unfair"])  # Set the x-axis labels to the moral judgments
                 ax.legend()
         fig.tight_layout()
+        plt.savefig('plot.png')  # Save the figure as an image
         plt.show()
 
     """def __call__(self):
