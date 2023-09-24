@@ -1,4 +1,4 @@
-from economic_agents.open_ai import OpenAI
+from .open_ai import OpenAI
 import matplotlib.pyplot as plt
 
 class CharnessRabin:
@@ -18,12 +18,12 @@ class CharnessRabin:
         ] 
         self.personality_choice = personality
         self.scenarios = {
-            f"Berk29_[{400},{400}]_[{750},{400}]": ((400, 400), (750, 400)),
-            f"Barc2_[{400},{400}]_[{750},{375}]": ((400, 400), (750, 375)),
-            f"Berk23_[{800},{200}]_[{0},{0}]": ((800, 200), (0, 0)),
-            f"Barc8_[{300},{600}]_[{700},{500}]": ((300, 600), (700, 500)),
-            f"Berk15_[{200},{700}]_[{600},{600}]": ((200, 700), (600, 600)),
-            f"Berk26_[{0},{800}]_[{400},{400}]": ((0, 800), (400, 400))
+            "B29\n[400,400],[750,400]": ((400, 400), (750, 400)),
+            "B2\n[400,400],[750,375]": ((400, 400), (750, 375)),
+            "B23\n[800,200],[0,0]": ((800, 200), (0, 0)),
+            "B8\n[300,600],[700,500]": ((300, 600), (700, 500)),
+            "B15\n[200,700],[600,600]": ((200, 700), (600, 600)),
+            "B26\n[0,800],[400,400]": ((0, 800), (400, 400))
         }
 
     def play(self):
@@ -47,7 +47,7 @@ class CharnessRabin:
     def create_plot(self, results):
         scenarios = list(results.keys())
         choices = [1 if choice == 'Right' else -1 for choice in results.values()]
-        plt.figure(figsize=(10, 6))
+        plt.figure(figsize=(12, 6))
         plt.scatter(choices, scenarios, color='blue')
         plt.xlabel('Choices (Right on 1, Left on -1)')
         plt.ylabel('Scenarios')
@@ -55,8 +55,7 @@ class CharnessRabin:
         plt.xticks([-1, 1], ['Left', 'Right'])
         plt.savefig('charness_rabin_plot.png')
 
-if __name__ == "__main__":
-    game = CharnessRabin("key", "gpt-3.5-turbo",0)
-    results = game.play()
-    print(results)
-    plot = game.create_plot(results)
+    def __call__(self):
+        results = self.play()
+        self.create_plot(results)
+        return results

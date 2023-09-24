@@ -1,0 +1,6 @@
+setup.py
+economic_agents.egg-info/PKG-INFO
+economic_agents.egg-info/SOURCES.txt
+economic_agents.egg-info/dependency_links.txt
+economic_agents.egg-info/requires.txt
+economic_agents.egg-info/top_level.txt

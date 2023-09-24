@@ -1,9 +1,4 @@
 import openai
-import logging 
-
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
-
 
 class OpenAI:
     def __init__(self, key, model, temperature=0.0):
