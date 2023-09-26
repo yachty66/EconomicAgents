@@ -206,7 +206,15 @@ You are hiring for the role of "Dishwasher." The typical hourly rate is $12/hour
 
 In terms of sample size, I tried each possible wage ask (13 through 19),I created a job-level data set, and regress (1) hired worker wage and (b) hired worker experience on the minimum wage indicator. Table 1 reports the results. We can see in Column (1) that imposing a minimum wage raised hourly wages, as expected. This was expected as there was no instruction to AI employers about the possibility of not filling their jobs. In Column (2), we can see that imposing the minimum wage caused more experienced workers to be hired.
 
+\begin{table}
+\begin{tabular}{l c c} \hline \hline  & \multicolumn{3}{c}{_Dependent variable:_} \\ \cline{2-3}  & w & exper \\  & Hired worker wage & Hired worker experience \\  & (1) & (2) \\ \hline \$15/hour Minimum wage imposed & 1.833*** & 0.167*** \\  & (0.076) & (0.045) \\ Constant & 13.333*** & 0.667*** \\  & (0.054) & (0.032) \\ \hline Observations & 360 & 360 \\ R${}^{2}$ & 0.621 & 0.037 \\ \hline \hline \end{tabular} _Notes: This reports the results of imposing a minimum wage on the (1) hired worker wage and (b) hired worker experience._
+
+\end{table}
+Table 1: Effects of minimum wage on observed wage
+
 This is just a small slice of the parameter space one could explore with this scenario. The job could be varied, other worker attributes, knowledge about the minimum wage, the presence of alternatives, the potential for using capital to substitute, and so on. These would all be straightforward to explore. In an application of this method, Brand, Israeli and Ngwe (2023) show that GPT3 "responds to sets of survey questions in ways that are consistent with economic theory and well-documented patterns of consumer behavior, including downward-sloping demand curves and state dependence."
+
+
 
 ## 4 Conclusion
 
