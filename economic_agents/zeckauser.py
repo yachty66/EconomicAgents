@@ -63,15 +63,15 @@ class Zeckauser:
                 logger.info(f"Prompt: {prompt}")
                 logger.info(f"Model response: {solution}")
             return results
-
+        
     def create_plot(self, df, views):
         views = ["30% auto \n framed as Status Quo", "50% \n auto framed as Status Quo", "60% \n auto framed as Status Quo", "70% \n auto framed as Status Quo", "Neutral framing"]
-        choices = ["30% car, 70% hwy", "50% car, 50% hwy", "60% car, 40% hwy", "70% car, 30% hwy"]
-        fig, axs = plt.subplots(1, 5, figsize=(18, 3.5), sharey=True)
+        choices = ["", "30% car, 70% hwy", "50% car, 50% hwy", "60% car, 40% hwy", "70% car, 30% hwy", ""]
+        fig, axs = plt.subplots(1, 5, figsize=(20, 3.5), sharey=True)  # Increase figure width
         for i, ax in enumerate(axs):
             ax.plot(df[df['View'] == views[i]]['Response'])
             ax.set_title(views[i])
-            ax.set_xticks(range(len(choices)))  # Set x-ticks to the range of the number of choices
+            ax.set_xticks(np.arange(len(choices)))  # Shift x-ticks to the right
             ax.set_xticklabels(choices, rotation='vertical')  # Set x-tick labels and rotate them
         plt.tight_layout()  # Adjust layout to prevent overlap
         plt.show()
@@ -95,7 +95,6 @@ if __name__ == "__main__":
         'View': np.repeat(views, 20),  # Repeat each view 20 times
         'Response': np.random.rand(100)  # 100 random numbers
     }
-
     df = pd.DataFrame(data)  # Create DataFrame from synthetic data
     zeckauser.create_plot(df, views)
     #zeckauser.create_plot(results)
