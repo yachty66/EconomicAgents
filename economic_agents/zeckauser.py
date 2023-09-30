@@ -73,6 +73,8 @@ class Zeckauser:
             ax.set_title(views[i])
             ax.set_xticks(np.arange(len(choices)))  # Shift x-ticks to the right
             ax.set_xticklabels(choices, rotation='vertical')  # Set x-tick labels and rotate them
+            ax.set_yticks(np.arange(0, 1.1, 0.2))  # Set y-ticks to 0%, 20%, 40%, 60%, 80%, 100%
+            ax.set_yticklabels(['0%', '20%', '40%', '60%', '80%', ''])  # Set y-tick labels
         plt.tight_layout()  # Adjust layout to prevent overlap
         plt.show()
     """heads = ["30% auto framed as Status Quo", "50% auto framed as Status Quo", "60% auto framed as Status Quo", "70% auto framed as Status Quo", "Neutral framing"]
