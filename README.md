@@ -1,6 +1,6 @@
 # EconomicAgents
 
-This is an implementation and Python package for the paper [`Large Language Models as Simulated Economic Agents: What Can We Learn from Homo Silicus?`](https://arxiv.org/abs/2301.07543). This Python package enables you to run all four simulations from the paper. 
+This is an implementation and Python package for the paper [Large Language Models as Simulated Economic Agents: What Can We Learn from Homo Silicus?](https://arxiv.org/abs/2301.07543). This Python package enables you to run all four simulations from the paper. 
 
 If you like this work, consider joining our [![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/Qy69gzmpt4).
 
