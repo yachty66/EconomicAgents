@@ -1,17 +1,16 @@
-
-from .open_ai import OpenAI
 import matplotlib.pyplot as plt
 import logging 
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+from .open_ai import OpenAI
+
 logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class Horton:
-    def __init__(self, api_key, model, image_page, logging):
-        openai_api_key: str = None
-        self.openai_api_key = openai_api_key
+    def __init__(self, api_key, model, image_path, logging):
+        self.openai_api_key = api_key
         self.model = OpenAI(key=api_key, model=model)
-        self.image_path = image_page
+        self.image_path = image_path
         self.logging = logging
 
     def play(self):

@@ -10,6 +10,7 @@ setup(
     install_requires=[
         'openai',
         'matplotlib',
-        'numpy'
+        'numpy',
+        'pandas'
     ],
 )

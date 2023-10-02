@@ -1,8 +1,0 @@
-Metadata-Version: 2.1
-Name: economic-agents
-Version: 0.1
-Summary: A Python package for the paper "Large Language Models as Simulated Economic Agents: What Can We Learn from Homo Silicus?"
-Author: Max Hager
-Author-email: maxhager28@gmail.com
-Requires-Dist: openai
-Requires-Dist: matplotlib

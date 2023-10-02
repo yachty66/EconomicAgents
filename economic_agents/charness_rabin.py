@@ -1,23 +1,19 @@
-from .open_ai import OpenAI
 import matplotlib.pyplot as plt
 import logging 
+
+from .open_ai import OpenAI
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 class CharnessRabin:
-    def __init__(self, api_key, model, personality, image_page, logging):
+    def __init__(self, api_key, model, personality, image_path, logging):
         openai_api_key: str = None
         self.openai_api_key = openai_api_key
         self.model = OpenAI(key=api_key, model=model)
-        self.image_path = image_page
+        self.image_path = image_path
         self.logging = logging
-        self.options = {
-            "left": {"A": 300, "B": 600},
-            "right": {"A": 700, "B": 500}
-        }
         self.personalities = [
-            "",
             "You only care about fairness between players",
             "You only care about your own pay-off",
             "You only care about the total pay-off of both players",

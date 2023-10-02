@@ -1,7 +1,8 @@
-from .open_ai import OpenAI
 import matplotlib.pyplot as plt
 import numpy as np
 import logging 
+
+from .open_ai import OpenAI
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -49,7 +50,7 @@ class Kahneman:
     def create_plot(self, results):
         plot_data = {}
         for (politics, store_action, price), judgment in results.items():
-            judgment = int(judgment) - 1  # Convert judgment to zero-based index
+            judgment = int(judgment) - 1  
             if politics not in plot_data:
                 plot_data[politics] = {}
             if price not in plot_data[politics]:
@@ -58,13 +59,13 @@ class Kahneman:
                 plot_data[politics][price][store_action] = [0, 0, 0]
             plot_data[politics][price][store_action][judgment] += 1
 
-        fig, axs = plt.subplots(len(self.politics_view), len(self.prices), figsize=(13, 13))  # Increase figure size
-        plt.subplots_adjust(wspace=0.5, hspace=0.5)  # Adjust spacing between subplots
+        fig, axs = plt.subplots(len(self.politics_view), len(self.prices), figsize=(13, 13)) 
+        plt.subplots_adjust(wspace=0.5, hspace=0.5) 
         for i, politics in enumerate(self.politics_view):
             for j, price in enumerate(self.prices):
                 ax = axs[i, j]
                 width = 0.35
-                x = np.arange(3)  # Define x here
+                x = np.arange(3)
                 for k, store_action in enumerate(self.store_actions):
                     view_data = [plot_data[politics][price][store_action][l] for l in range(3)]
                     ax.bar(x + k*width/2, view_data, width/2, color=['red', 'grey'][k], label=store_action)
@@ -72,7 +73,7 @@ class Kahneman:
                 ax.set_ylabel('Count')
                 ax.set_title(f'{politics} for price {price}')
                 ax.set_xticks(x + width/4)
-                ax.set_xticklabels(["Acceptable", "Unfair", "Very Unfair"])  # Set the x-axis labels to the moral judgments
+                ax.set_xticklabels(["Acceptable", "Unfair", "Very Unfair"])  
                 ax.legend()
         fig.tight_layout()
         plt.savefig(self.image_path) 
