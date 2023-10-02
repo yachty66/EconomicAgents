@@ -7,11 +7,12 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 class Kahneman:
-    def __init__(self, api_key, model, image_path):
+    def __init__(self, api_key, model, image_path, logging):
         openai_api_key: str = None
         self.openai_api_key = openai_api_key
         self.model = OpenAI(key=api_key, model=model)
         self.image_path = image_path
+        self.logging = logging
         self.politics_view = [
             "socialist",
             "leftist",
@@ -40,9 +41,9 @@ class Kahneman:
                     What is your choice [1, 2, 3, or 4]. Its important that you only answer with the number and nothing else:"""
                     solution = self.model.generate(prompt)
                     results[(politics, store_action, price)] = solution
-                    print(results)
-                    logger.info(f"Prompt: {prompt}")
-                    logger.info(f"Model response: {solution}")
+                    if self.logging:
+                        logger.info(f"Prompt: {prompt}")
+                        logger.info(f"Model response: {solution}")
         return results
 
     def create_plot(self, results):

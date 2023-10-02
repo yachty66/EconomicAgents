@@ -1,11 +1,17 @@
-from economic_agents.open_ai import OpenAI
+from .open_ai import OpenAI
 import matplotlib.pyplot as plt
+import logging 
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 class CharnessRabin:
-    def __init__(self, api_key, model, personality):
+    def __init__(self, api_key, model, personality, image_page, logging):
         openai_api_key: str = None
         self.openai_api_key = openai_api_key
         self.model = OpenAI(key=api_key, model=model)
+        self.image_path = image_page
+        self.logging = logging
         self.options = {
             "left": {"A": 300, "B": 600},
             "right": {"A": 700, "B": 500}
@@ -14,16 +20,17 @@ class CharnessRabin:
             "",
             "You only care about fairness between players",
             "You only care about your own pay-off",
-            "You only care about the total pay-off of both players"
+            "You only care about the total pay-off of both players",
+            " "
         ] 
         self.personality_choice = personality
         self.scenarios = {
-            f"Berk29_[{400},{400}]_[{750},{400}]": ((400, 400), (750, 400)),
-            f"Barc2_[{400},{400}]_[{750},{375}]": ((400, 400), (750, 375)),
-            f"Berk23_[{800},{200}]_[{0},{0}]": ((800, 200), (0, 0)),
-            f"Barc8_[{300},{600}]_[{700},{500}]": ((300, 600), (700, 500)),
-            f"Berk15_[{200},{700}]_[{600},{600}]": ((200, 700), (600, 600)),
-            f"Berk26_[{0},{800}]_[{400},{400}]": ((0, 800), (400, 400))
+            "B29\n[400,400],[750,400]": ((400, 400), (750, 400)),
+            "B2\n[400,400],[750,375]": ((400, 400), (750, 375)),
+            "B23\n[800,200],[0,0]": ((800, 200), (0, 0)),
+            "B8\n[300,600],[700,500]": ((300, 600), (700, 500)),
+            "B15\n[200,700],[600,600]": ((200, 700), (600, 600)),
+            "B26\n[0,800],[400,400]": ((0, 800), (400, 400))
         }
 
     def play(self):
@@ -42,21 +49,23 @@ class CharnessRabin:
             What do you choose, with one word [Left, Right]?"""
             solution = self.model.generate(prompt)
             results[scenario] = solution
+            if logging:
+                logger.info(f"Prompt: {prompt}")
+                logger.info(f"Model response: {solution}")
         return results
 
     def create_plot(self, results):
         scenarios = list(results.keys())
         choices = [1 if choice == 'Right' else -1 for choice in results.values()]
-        plt.figure(figsize=(10, 6))
+        plt.figure(figsize=(12, 6))
         plt.scatter(choices, scenarios, color='blue')
         plt.xlabel('Choices (Right on 1, Left on -1)')
         plt.ylabel('Scenarios')
         plt.title('Choices for each scenario')
         plt.xticks([-1, 1], ['Left', 'Right'])
-        plt.savefig('charness_rabin_plot.png')
+        plt.savefig(self.image_path)
 
-if __name__ == "__main__":
-    game = CharnessRabin("key", "gpt-3.5-turbo",0)
-    results = game.play()
-    print(results)
-    plot = game.create_plot(results)
+    def __call__(self):
+        results = self.play()
+        self.create_plot(results)
+        return results

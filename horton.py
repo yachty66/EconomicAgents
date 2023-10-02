@@ -7,11 +7,12 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 class Horton:
-    def __init__(self, api_key, model, image_page):
+    def __init__(self, api_key, model, image_page, logging):
         openai_api_key: str = None
         self.openai_api_key = openai_api_key
         self.model = OpenAI(key=api_key, model=model)
         self.image_path = image_page
+        self.logging = logging
 
     def play(self):
         wage_asks = [13, 14, 15, 16, 17, 18, 19, 20]
@@ -34,8 +35,9 @@ class Horton:
                 solution = self.model.generate(prompt)
                 scenario = f"Min wage: {i}, Wage ask: {j}"
                 results[scenario] = solution
-                logger.info(f"Prompt: {prompt}")
-                logger.info(f"Model response: {solution}")
+                if self.logging:
+                    logger.info(f"Prompt: {prompt}")
+                    logger.info(f"Model response: {solution}")
         return results
     
     def create_plot(self, results):
